@@ -1,0 +1,25 @@
+version: '3.4'
+services:
+  mlsp-aesthetic-score-predictor:
+    network_mode: host
+    image: cribin/mlsp-aesthetic-score-predictor:dev
+    ports:
+      - '5001:5001'
+    volumes:
+      - aesthetics-content-storage:/content-storage
+  deep-face-emotion-predictor:
+    network_mode: host
+    image: cribin/deepface-emotion-predictor:dev
+    ports:
+      - '5002:5002'
+    volumes:
+      - aesthetics-content-storage:/content-storage
+  upload-extraction-manager:
+    network_mode: host
+    image: cribin/upload-and-extraction-manager:dev
+    volumes:
+      - aesthetics-content-storage:/content-storage
+    ports:
+      - '5003:5003'
+volumes:
+  aesthetics-content-storage:
