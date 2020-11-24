@@ -1,25 +1,33 @@
 version: '3.4'
 services:
   mlsp-aesthetic-score-predictor:
-    network_mode: host
     image: cribin/mlsp-aesthetic-score-predictor:dev
     ports:
       - '5001:5001'
     volumes:
-      - aesthetics-content-storage:/content-storage
+      - ./prediction_images:/content_storage/prediction_images
   deep-face-emotion-predictor:
-    network_mode: host
     image: cribin/deepface-emotion-predictor:dev
     ports:
       - '5002:5002'
     volumes:
-      - aesthetics-content-storage:/content-storage
-  upload-extraction-manager:
-    network_mode: host
-    image: cribin/upload-and-extraction-manager:dev
-    volumes:
-      - aesthetics-content-storage:/content-storage
+      - ./prediction_images:/content_storage/prediction_images
+  hecate-image-metrics-predictor:
+    image: cribin/hecate-image-metrics-predictor:dev
     ports:
-      - '5003:5003'
-volumes:
-  aesthetics-content-storage:
+      - '5004:5004'
+    volumes:
+      - ./prediction_images:/content_storage/prediction_images
+  parnaca-image-metrics-predictor:
+    image: cribin/parnaca-image-metrics-predictor:dev
+    ports:
+      - '5005:5005'
+    volumes:
+      - ./prediction_images:/content_storage/prediction_images
+  aesthetics-predictor-api:
+    image: cribin/aesthetics-predictor-api:dev
+    volumes:
+      - ./prediction_images:/content_storage/prediction_images
+      - ./input_config.json:/aestheticFeatureExtractorApi/config_files/input_config.json
+      - ./prediction_results.json:/aestheticFeatureExtractorApi/config_files/prediction_results.json
+

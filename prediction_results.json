@@ -1,0 +1,101 @@
+{
+    "tmp3_mountains_with_sky.jpg": {
+        "1": {
+            "aesthetic score": 4.965275764465332
+        },
+        "2": {
+            "facial emotion": "none"
+        },
+        "3": {
+            "Asymmetry": 0.239973,
+            "Brightness": 0.557924,
+            "ContrastBalance": -0.095492,
+            "Entropy": 54.249486,
+            "ExposureBalance": -0.972274,
+            "JpegQuality": 0.0,
+            "RMSContrast": 69.446244,
+            "Sharpness": 0.157182,
+            "Uniformity": 0.112556
+        },
+        "4": {
+            "BalancingElement": "0.18350534",
+            "ColorHarmony": "0.49565846",
+            "DoF": "-0.10001901",
+            "GoodLighting": "-0.034318645",
+            "InterestingContent": "0.13803095",
+            "MotionBlur": "0.016471162",
+            "ObjectEmphasis": "-0.20366982",
+            "Repetition": "0.11462477",
+            "RuleOfThirds": "0.028601352",
+            "Symmetry": "0.19205739",
+            "TotalScore": "0.5072049",
+            "VividColor": "-0.23027809"
+        }
+    },
+    "tmp2.jpg": {
+        "1": {
+            "aesthetic score": 3.3861770629882812
+        },
+        "2": {
+            "facial emotion": "none"
+        },
+        "3": {
+            "Asymmetry": 0.119655,
+            "Brightness": 0.451641,
+            "ContrastBalance": -0.120952,
+            "Entropy": 45.734837,
+            "ExposureBalance": -1.214903,
+            "JpegQuality": 0.0,
+            "RMSContrast": 61.801265,
+            "Sharpness": 0.135769,
+            "Uniformity": 0.145238
+        },
+        "4": {
+            "BalancingElement": "-0.1399433",
+            "ColorHarmony": "-0.063674524",
+            "DoF": "-0.3082803",
+            "GoodLighting": "-0.51886827",
+            "InterestingContent": "-0.48011437",
+            "MotionBlur": "-0.12920865",
+            "ObjectEmphasis": "-0.3500055",
+            "Repetition": "0.10312335",
+            "RuleOfThirds": "-0.2824399",
+            "Symmetry": "0.04295303",
+            "TotalScore": "0.2663577",
+            "VividColor": "-0.14748222"
+        }
+    },
+    "tmp1.jpg": {
+        "1": {
+            "aesthetic score": 5.9292826652526855
+        },
+        "2": {
+            "facial emotion": "none"
+        },
+        "3": {
+            "Asymmetry": 0.146138,
+            "Brightness": 0.646033,
+            "ContrastBalance": -0.161966,
+            "Entropy": 47.973516,
+            "ExposureBalance": -2.515409,
+            "JpegQuality": 0.0,
+            "RMSContrast": 45.804755,
+            "Sharpness": 0.380835,
+            "Uniformity": 0.090895
+        },
+        "4": {
+            "BalancingElement": "0.29619002",
+            "ColorHarmony": "0.4826322",
+            "DoF": "0.06181995",
+            "GoodLighting": "0.55484724",
+            "InterestingContent": "0.7627061",
+            "MotionBlur": "0.07137732",
+            "ObjectEmphasis": "0.3836152",
+            "Repetition": "0.063650146",
+            "RuleOfThirds": "0.52559304",
+            "Symmetry": "0.021963604",
+            "TotalScore": "0.8340554",
+            "VividColor": "0.35484767"
+        }
+    }
+}
