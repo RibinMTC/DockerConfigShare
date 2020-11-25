@@ -1,4 +1,4 @@
-###Predictors Config
+### Predictors Config 
 1. Mlsp Aesthetic Score Predictor. \
    Output: An aesthetic score between 0 and 10.
 2. Deepface Emotion Predictor. \
@@ -8,7 +8,7 @@
 4. Parnaca Image Metrics Predictor. \
    Output: Each predicted metric is between -1 and 1, except the _TotalScore_, which is between 0 and 1.
     
-###Usage
+### Usage
 1. Install Docker (Windows/Mac: Install Docker Desktop)
 2. Drag all images to be predicted, to the _prediction_images_ folder
 3. Select in the _input_config.json_ file under _predictors_, which features should be extracted(see Predictors Config)
