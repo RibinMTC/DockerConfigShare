@@ -82,7 +82,7 @@ if __name__ == "__main__":
       df_parnaca_gt = pd.read_csv(label_name)
       df_parnaca_gt.ImageFile.tolist()
     
-        with open('prediction_results.json') as json_file:
+    with open('prediction_results.json') as json_file:
         data = json.load(json_file)
 
     # -------- Global evaluation: all the images in the folder --------
