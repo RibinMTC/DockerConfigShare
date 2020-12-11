@@ -7,7 +7,11 @@
    Output: For a full documentation of the output see [here](https://github.com/yahoo/hecate/blob/master/include/hecate/image_metrics.hpp).
 4. Parnaca Image Metrics Predictor. \
    Output: Each predicted metric is between -1 and 1, except the _TotalScore_, which is between 0 and 1. More info in their [project page](https://www.ics.uci.edu/~skong2/aesthetics.html).
-    
+5. PAZ Emotion Predictor. \
+   Output:  Predicts an emotion with the corresponding bounding box coordinates(xMin, yMin, xMax, yMax) or returns an empty list if nothing is detected. More info in their [project page](https://github.com/oarriaga/paz).
+6. FER Emotion Predictor. \
+   Output:  Predicts emotions(angry, disgust, fear, happy, neutral, sad, surprise) with a corresponding confidence score(0-1) and the bounding box coordinates(xMin, yMin, xMax, yMax) or returns an empty list if nothing is detected. More info in their [project page](https://github.com/justinshenk/fer).
+     
 ### Usage
 1. Install Docker (Windows/Mac: Install Docker Desktop)
 2. Drag all images to be predicted, to the _prediction_images_ folder

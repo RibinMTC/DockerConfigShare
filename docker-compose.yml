@@ -1,33 +1,46 @@
 version: '3.4'
 services:
-  mlsp-aesthetic-score-predictor:
-    image: cribin/mlsp-aesthetic-score-predictor:dev
+#  mlsp-aesthetic-score-predictor:
+#    image: cribin/mlsp-aesthetic-score-predictor:dev
+#    ports:
+#      - '5001:5001'
+#    volumes:
+#      - ./prediction_images:/content_storage/prediction_images
+#  deep-face-emotion-predictor:
+#    image: cribin/deepface-emotion-predictor:dev
+#    ports:
+#      - '5002:5002'
+#    volumes:
+#      - ./prediction_images:/content_storage/prediction_images
+  paz-emotion-predictor:
+    image: cribin/paz-emotion-predictor:dev
     ports:
-      - '5001:5001'
+      - '5006:5006'
     volumes:
       - ./prediction_images:/content_storage/prediction_images
-  deep-face-emotion-predictor:
-    image: cribin/deepface-emotion-predictor:dev
+  fer-emotion-predictor:
+    image: cribin/fer-emotion-predictor:dev
     ports:
-      - '5002:5002'
+      - '5007:5007'
     volumes:
       - ./prediction_images:/content_storage/prediction_images
-  hecate-image-metrics-predictor:
-    image: cribin/hecate-image-metrics-predictor:dev
-    ports:
-      - '5004:5004'
-    volumes:
-      - ./prediction_images:/content_storage/prediction_images
-  parnaca-image-metrics-predictor:
-    image: cribin/parnaca-image-metrics-predictor:dev
-    ports:
-      - '5005:5005'
-    volumes:
-      - ./prediction_images:/content_storage/prediction_images
+#  hecate-image-metrics-predictor:
+#    image: cribin/hecate-image-metrics-predictor:dev
+#    ports:
+#      - '5004:5004'
+#    volumes:
+#      - ./prediction_images:/content_storage/prediction_images
+#  parnaca-image-metrics-predictor:
+#    image: cribin/parnaca-image-metrics-predictor:dev
+#    ports:
+#      - '5005:5005'
+#    volumes:
+#      - ./prediction_images:/content_storage/prediction_images
   aesthetics-predictor-api:
     image: cribin/aesthetics-predictor-api:dev
     volumes:
       - ./prediction_images:/content_storage/prediction_images
       - ./input_config.json:/aestheticFeatureExtractorApi/config_files/input_config.json
       - ./prediction_results.json:/aestheticFeatureExtractorApi/config_files/prediction_results.json
+      - ./predictors_address_deploy.json:/aestheticFeatureExtractorApi/config_files/predictors_address_deploy.json
 

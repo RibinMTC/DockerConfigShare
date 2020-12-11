@@ -1,0 +1,8 @@
+{
+  "1": "http://mlsp-aesthetic-score-predictor:5001",
+  "2": "http://deep-face-emotion-predictor:5002",
+  "3": "http://hecate-image-metrics-predictor:5004",
+  "4": "http://parnaca-image-metrics-predictor:5005",
+  "5": "http://paz-emotion-predictor:5006",
+  "6": "http://fer-emotion-predictor:5007"
+}
