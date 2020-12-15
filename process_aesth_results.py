@@ -37,31 +37,33 @@ def create_method_pred_df(data, method = '1'):
   return df_pred 
 
 
-def evaluate_spearman_corr(gt, pred):
+def evaluate_spearman_corr(gt, pred, ref='TotalScore'):
   """Spearman’s ρ rank correlation statistic between features and gt aesthetic score.
   First we get common elements to compare and order them by image file name.
+  ref: either 'aesthetic score' if its mlsp method or 'TotalScore' if it's AADB dataset
   """
   imgs_to_eval = list(set(gt.ImageFile) & set(pred.ImageFile))
   gt = gt[gt['ImageFile'].isin(imgs_to_eval)].sort_values(by=['ImageFile'])
   pred = pred[pred['ImageFile'].isin(imgs_to_eval)].sort_values(by=['ImageFile'])
 
   for col in pred.columns[1:]:
-    attr_gt = gt.loc[:,'TotalScore']
+    attr_gt = gt.loc[:,ref] 
     attr_pred = pred.loc[:,col]
     rho,pval = spr(attr_gt,attr_pred)
     print("{}: rho: {} at p value: {}".format(col, rho, pval))    
 
 
-def plot_corr(gt, pred, name):
+def plot_corr(gt, pred, name, ref='TotalScore'):
   """Plot datapoints and regression to see correlation between features and gt aesthetic score.
   First we get common elements to compare and order them by image file name.
+  ref: either 'aesthetic score' if its mlsp method or 'TotalScore' if it's AADB dataset
   """
   imgs_to_eval = list(set(gt.ImageFile) & set(pred.ImageFile))
   gt = gt[gt['ImageFile'].isin(imgs_to_eval)].sort_values(by=['ImageFile'])
   pred = pred[pred['ImageFile'].isin(imgs_to_eval)].sort_values(by=['ImageFile'])
 
   for col in pred.columns[1:]:
-    attr_gt = gt.loc[:,'TotalScore']
+    attr_gt = gt.loc[:,ref] 
     attr_pred = pred.loc[:,col]
     df = pd.DataFrame({"AestheticScore": attr_gt, col: attr_pred})
     sns_scatter_plot = sns.jointplot(x="AestheticScore", y=col, data=df, kind="reg")
@@ -82,24 +84,39 @@ if __name__ == "__main__":
       df_parnaca_gt = pd.read_csv(label_name)
       df_parnaca_gt.ImageFile.tolist()
     
-    with open('prediction_results.json') as json_file:
+    with open('prediction_results_aadbtest.json') as json_file:
         data = json.load(json_file)
 
     # -------- Global evaluation: all the images in the folder --------
 
-    df_mlsp_pred = create_method_pred_df(data, method = '1')      
+    df_mlsp_pred = create_method_pred_df(data, method = '1') 
+    df_mlsp_pred.loc[:,"aesthetic score"] = df_mlsp_pred.loc[:,"aesthetic score"]/10.0     
     df_deepface_pred = create_method_pred_df(data, method = '2')
     df_hecate_pred = create_method_pred_df(data, method = '3')
     df_parnaca_pred = create_method_pred_df(data, method = '4')
     df = pd.merge(pd.merge(pd.merge(df_mlsp_pred, df_deepface_pred), df_hecate_pred), df_parnaca_pred)
 
     if eval_corr:
+      # compare features with gt AADB score
       evaluate_spearman_corr(df_parnaca_gt, df_parnaca_pred)
       evaluate_spearman_corr(df_parnaca_gt, df_parnaca_gt)
       evaluate_spearman_corr(df_parnaca_gt, df_hecate_pred)
 
       plot_corr(df_parnaca_gt, df_parnaca_gt, name = "parnaca_gt")
       plot_corr(df_parnaca_gt, df_hecate_pred, name = "hecate")
+
+      # compare features with predicted parnaca score
+      evaluate_spearman_corr(df_parnaca_pred, df_parnaca_pred)
+      evaluate_spearman_corr(df_parnaca_pred, df_parnaca_gt)
+      evaluate_spearman_corr(df_parnaca_pred, df_hecate_pred)
+      
+      # compare features with predicted mlsp score
+      evaluate_spearman_corr(df_mlsp_pred, df_hecate_pred, ref='aesthetic score')
+      evaluate_spearman_corr(df_mlsp_pred, df_parnaca_pred, ref='aesthetic score')
+      evaluate_spearman_corr(df_mlsp_pred, df_parnaca_gt, ref='aesthetic score')
+
+      plot_corr(df_mlsp_pred, df_hecate_pred, name = "hecate_mlsp", ref='aesthetic score')
+      plot_corr(df_mlsp_pred, df_parnaca_gt, name = "parnaca_gt_mlsp", ref='aesthetic score')
 
     
     # -------- Individual evaluation: per image --------
@@ -108,15 +125,11 @@ if __name__ == "__main__":
 
       # methods
       mlsp = im_info['1']
-      deepface = im_info['2']
       hecate = im_info['3']
       parnaca_predictions = im_info['4']
 
       # 1- Mlsp Aesthetic Score Predictor: aesthetic score [0,10]
       aesthetic_score = norm_data(mlsp['aesthetic score'], 0, 10) 
-
-      # 2- Deepface Emotion Predictor: none, surprised, happy, sad, ...
-      facial_emotion = deepface['facial emotion']
 
       # 3- Hecate Image Metrics Predictor
       Asymmetry = hecate['Asymmetry'] # 0-1
@@ -133,7 +146,6 @@ if __name__ == "__main__":
       # They do: negative [-1,-0.2], null [-0.2,0.2], positive [0.2,1]. Try to find a better threshold
       parnaca_gt = df_parnaca_gt[df_parnaca_gt['ImageFile']==im_name].to_dict('records')[0]
                       
-
       if abs(aesthetic_score - float(parnaca_predictions["TotalScore"])) > 0.05:
         print("score discrepancy: ", abs(aesthetic_score - float(parnaca_predictions["TotalScore"])))
 
