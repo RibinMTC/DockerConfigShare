@@ -20,7 +20,7 @@ WORKDIR /predictorMainDir
 COPY ./requirements.txt /predictorMainDir/requirements.txt
 
 # install project requirements
-RUN pip install -r requirements.txt
+RUN pip install -r requirements.txt --upgrade
 
 # copy project
 COPY . .
@@ -28,4 +28,4 @@ COPY . .
 # set app port
 EXPOSE port_num_of_predictor
 
-ENTRYPOINT ["gunicorn", "--config", "gunicorn_config.py", "--env", "API_CONFIG="api_config.json", "aesthetics_predictor_api_pkg.predictor_api_server:app"]
+ENTRYPOINT ["gunicorn", "--config", "gunicorn_config.py", "--env", "API_CONFIG=api_config.json", "aesthetics_predictor_api_pkg.predictor_api_server:app"]
