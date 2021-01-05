@@ -22,6 +22,8 @@ docker-compose up --build
 ```
 5. Now prediction should be starting. Once prediction is finished, the results are written to the ``prediction_results.json`` file
 
+For more details on how to add a custom aesthetic predictor to the api, see [here](https://docs.google.com/document/d/1hDjqn07FveOCTLcdRhFALy0dsiGLQw783rGL7uP4Ckw/edit?usp=sharing).
+
 ### Evaluation
 We use the file ``preprocessing_datasets.py`` to prepare the data. Especially we use it to divide the data in test, train and val folders, and to generate pandas datafames with the data.
 
